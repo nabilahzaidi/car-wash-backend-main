@@ -111,6 +111,7 @@ const signInUser = catchAsync(async(req,res)=>{
         success:true,
         message:"User logged in successfully",
         token: `${accessToken}`,
+        accessToken: `${accessToken}`,
         data:user
     })
 })
