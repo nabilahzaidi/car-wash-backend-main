@@ -83,14 +83,10 @@ const updateUser = catchAsync(async (req,res)=>{
 
     const result =  await userServices.updateUserInfoIntoDb(id,payload);
 
-    // const resultObj = result.toObject();
-    // delete resultObj.password;
-    // delete resultObj.__v;
-
     sendResponse(res,{
         statusCode: httpStatus.OK,
         success:true,
-        message: "Update User Role successfully",
+        message: "Update User Info successfully",
         data: result,
     })
 })

@@ -70,6 +70,7 @@ const updateUserIntoDb = async (id: string, payload: Partial<TUser>)=>{
     runValidators: true,
   }).select('-__v');
 
+  return result;
 }
 
 const updateUserInfoIntoDb = async (id: string, payload: Partial<TUser>)=>{
@@ -84,6 +85,7 @@ const updateUserInfoIntoDb = async (id: string, payload: Partial<TUser>)=>{
     runValidators: true,
   }).select('-__v');
 
+  return result;
 }
 
 //user Login
@@ -108,7 +110,8 @@ const userSignIntoDB = async(payload: TUserAuth )=>{
    }
 
    const jwtPayload = {
-    userEmail:user.email,
+    userEmail: user.email,
+    email: user.email,
     role: user.role,
    };
 
