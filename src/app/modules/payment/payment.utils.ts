@@ -30,8 +30,21 @@ export const initiatePayment = async (paymentData: any) => {
             type: "json"
         });
 
-        //console.log(response);
-        return response.data;
+        const data = response.data;
+        const paymentUrl =
+            data?.GatewayPageURL ||
+            data?.payment_url ||
+            data?.redirect_url ||
+            data?.checkout_url;
+
+        if (!paymentUrl) {
+            throw new Error('Payment initiation failed: provider did not return a redirect URL.');
+        }
+
+        return {
+            ...data,
+            payment_url: paymentUrl,
+        };
     }
     catch (err) {
         throw new Error("Payment initiation failed!")

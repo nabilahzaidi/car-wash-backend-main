@@ -13,42 +13,27 @@ const createServiceBookingIntoDB = async(payload: TBooking)=>{
 
     const createOrder = await ServiceBooking.create(orderData);
 
-if(createOrder){
-    try{
-        const service =  await Service.findById(orderData.service);
-        const user = await User.findById(orderData.customer)
-        
-    
-    const totalPrice = service?.price || 0;
-    
-    
-    
-        const paymentData = {
-            transactionId,
-            totalPrice,
-            customerName: user!.name ,
-            customerEmail: user!.email,
-            customerPhone: user!.phone,
-            customerAddress: user!.address
-    
-        }
-    
-       
-        
-        //payment
-        const paymentSession = await initiatePayment(paymentData)
-    
-   
-        
-        // const populateBooking = await ServiceBooking.findById(createOrder._id)
-        // .populate('customer service slot','-role -__v -createdAt -updatedAt').select('-__v');
-        return paymentSession;
-    
-    }catch(err){
-        return err;
-    }
+if (!createOrder) {
+    throw new Error('Booking creation failed.');
 }
 
+const service = await Service.findById(orderData.service);
+const user = await User.findById(orderData.customer);
+
+const totalPrice = service?.price || 0;
+
+const paymentData = {
+    transactionId,
+    totalPrice,
+    customerName: user?.name || orderData.customerName || 'Customer',
+    customerEmail: user?.email || orderData.customerEmail,
+    customerPhone: user?.phone || orderData.customerPhone,
+    customerAddress: user?.address || orderData.customerAddress,
+};
+
+const paymentSession = await initiatePayment(paymentData);
+
+return paymentSession;
 }
 
 
