@@ -70,10 +70,33 @@ const payload = req.body;
     })
 })
 
-
+//delete slots
+const deleteSlot = catchAsync(async(req,res)=>{
+  const {id}=req.params;
+  
+  const result = await slotsServices.deleteSlotFromDB(id)
+  
+  if(!result){
+      sendResponse(res,{
+          statusCode: httpStatus.BAD_REQUEST,
+          success:false,
+          message: "Slot not found or could not be deleted",
+          data:result,
+      })
+      return;
+  }
+  
+  sendResponse(res,{
+      statusCode: httpStatus.OK,
+      success:true,
+      message: "Slot deleted successfully",
+      data:result,
+  })
+})
 
 export const ServiceSlotsController = {
     getAllAvailableServiceSlot,
     getAllServiceSlot,
-    updateSlotStatus
+    updateSlotStatus,
+    deleteSlot
 }

@@ -14,6 +14,6 @@ const router = express.Router()
 router.get('/availability', ServiceSlotsController.getAllAvailableServiceSlot)
 router.get('/', auth(USER_ROLE.admin), ServiceSlotsController.getAllServiceSlot)
 router.put('/status/:id', auth(USER_ROLE.admin), ServiceSlotsController.updateSlotStatus)
-
+router.delete('/:id', auth(USER_ROLE.admin), ServiceSlotsController.deleteSlot)
 
 export const ServiceSlotsRoutes = router;

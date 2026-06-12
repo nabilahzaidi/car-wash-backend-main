@@ -47,6 +47,16 @@ const query: any = {}
     return result;
   
   }
+
+const deleteSlotFromDB = async (id: string) => {
+  const result = await ServicesSlot.findByIdAndDelete(id);
+  
+  if (!result) {
+    throw new Error('Slot not found');
+  }
+  
+  return result;
+};
   
 
 
@@ -54,5 +64,6 @@ const query: any = {}
   export const slotsServices = {
     getAllServicesAvailableSlotFromDB,
     getAllServicesSlotsFromDB,
-    updateSlotsStatusIntoDB
+    updateSlotsStatusIntoDB,
+    deleteSlotFromDB
   }
