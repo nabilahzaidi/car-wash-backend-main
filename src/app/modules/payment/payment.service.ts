@@ -1,10 +1,15 @@
 /* eslint-disable no-undef */
 import { join } from "path";
 
-import { verifyPayment } from "./payment.utils";
+import { verifyPayment, initiatePayment } from "./payment.utils";
 import { readFileSync } from "fs";
 import { ServiceBooking } from "../booking/booking.model";
 import { ServicesSlot } from "../serviceSlots/serviceSlots.model";
+
+const initiateQuickPayment = async (paymentData: any) => {
+  const paymentSession = await initiatePayment(paymentData);
+  return paymentSession;
+}
 
 const confirmationService = async (transactionId: string) => {
     
@@ -44,5 +49,6 @@ const confirmationService = async (transactionId: string) => {
 }
 
 export const paymentServices = {
+    initiateQuickPayment,
     confirmationService
 }

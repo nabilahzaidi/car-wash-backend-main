@@ -3,7 +3,7 @@ import { paymentController } from "./payment.controller";
 
 const router = Router()
 
-
+router.post('/initiate', paymentController.initiateQuickPaymentController)
 router.post('/confirmation',paymentController.confirmationController)
 
 

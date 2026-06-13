@@ -7,7 +7,7 @@ export type TService= {
     description:string;
     price:number;
     duration:number;
-    vehicleType: string;
+    vehicleType?: string;
     isDeleted: boolean;
     __v?: number;
 }

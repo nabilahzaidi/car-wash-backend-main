@@ -48,6 +48,12 @@ const BookingSchema = new Schema<TBooking>({
     type:String,
     
   }
+  ,
+  status:{
+    type: String,
+    enum: ['Pending','Approved','Rejected','Completed'],
+    default: 'Pending'
+  }
 },{
     timestamps:true
 });

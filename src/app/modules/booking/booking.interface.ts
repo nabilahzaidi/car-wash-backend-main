@@ -46,5 +46,6 @@ export interface TBooking {
   registrationPlate:string;
   paymentStatus?:string;
   transactionId:string;
+  status?: 'Pending' | 'Approved' | 'Rejected' | 'Completed';
   
 }

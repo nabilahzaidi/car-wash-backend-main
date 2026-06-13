@@ -6,7 +6,6 @@ const createServiceValidationSchema = z.object({
         description: z.string(),
         price:z.number().min(0,{message:"price must be 0 to start"}),
         duration:z.number(),
-        vehicleType: z.enum(["Small Car","Medium Car","SUV","MPV","Van/Truck"],{message:"Invalid vehicle type"})
     })
 })
 const updateServiceValidationSchema = z.object({
@@ -15,7 +14,6 @@ const updateServiceValidationSchema = z.object({
         description: z.string().optional(),
         price:z.number().min(0,{message:"price must be 0 to start"}).optional(),
         duration:z.number().optional(),
-        vehicleType: z.enum(["Small Car","Medium Car","SUV","MPV","Van/Truck"],{message:"Invalid vehicle type"}).optional()
     })
 })
 

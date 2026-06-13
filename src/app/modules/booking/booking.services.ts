@@ -3,6 +3,7 @@ import { Service } from "../Services/service.model";
 import { User } from "../user/user.model";
 import { TBooking } from "./booking.interface";
 import { ServiceBooking } from "./booking.model";
+import { ServicesSlot } from "../serviceSlots/serviceSlots.model";
 
 
 const createServiceBookingIntoDB = async(payload: TBooking)=>{
@@ -60,8 +61,25 @@ const getUsersBookingsFromDB = async (userId: string)=>{
     return result;
 }
 
-export const serviceBookings = {
-    createServiceBookingIntoDB,
-    getAllServiceBookingFromDB,
-    getUsersBookingsFromDB
+// update booking (approve/reject or other updates)
+const updateBookingInDB = async (bookingId: string, payload: Partial<any>) => {
+    const booking = await ServiceBooking.findByIdAndUpdate(bookingId, payload, { new: true });
+    if (!booking) throw new Error('Booking not found');
+
+    // if approved or completed, mark slot as booked
+    if ((payload.status === 'Approved' || payload.status === 'Completed') && booking.slot) {
+        await ServicesSlot.findByIdAndUpdate(booking.slot, { isBooked: 'booked' });
+    }
+
+    // if rejected or canceled, free the slot
+    if ((payload.status === 'Rejected' || payload.status === 'canceled') && booking.slot) {
+        await ServicesSlot.findByIdAndUpdate(booking.slot, { isBooked: 'available' });
+    }
+
+    return booking;
 }
+
+// export extended services
+export const serviceBookings = Object.assign({
+    updateBookingInDB
+}, { createServiceBookingIntoDB, getAllServiceBookingFromDB, getUsersBookingsFromDB });

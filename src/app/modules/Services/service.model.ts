@@ -36,7 +36,7 @@ const ServiceSchema = new Schema<TService>(
         vehicleType:{
             type: String,
             enum: ["Small Car","Medium Car","SUV","MPV","Van/Truck"],
-            required: true,
+            required: false,
         },
         isDeleted:{
             type: Boolean,

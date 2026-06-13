@@ -83,7 +83,24 @@ const getAllBookings = catchAsync(async (req, res) => {
   });
 });
 
+
+// update booking (approve/reject)
+const updateBooking = catchAsync(async (req, res) => {
+  const bookingId = req.params.id;
+  const payload = req.body;
+
+  const result = await serviceBookings.updateBookingInDB(bookingId, payload);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Booking updated successfully',
+    data: result,
+  });
+});
+
 export const BookingControllers = {
   createServiceBooking,
   getAllBookings,
+  updateBooking,
 };
