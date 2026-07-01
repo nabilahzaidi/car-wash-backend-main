@@ -20,6 +20,7 @@ router.get('/user',auth(USER_ROLE.admin,USER_ROLE.user), UserControllers.getUser
 router.get('/users',auth(USER_ROLE.admin), UserControllers.getAllUser);
 router.put('/user/:id',auth(USER_ROLE.admin), UserControllers.updateUserRole);
 router.put('/userInfo/:id',auth(USER_ROLE.admin,USER_ROLE.user), UserControllers.updateUser);
+router.delete('/user/:id',auth(USER_ROLE.admin), UserControllers.deleteUser);
 
 
 export const UserRoutes = router;

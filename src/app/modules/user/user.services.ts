@@ -87,7 +87,11 @@ const updateUserInfoIntoDb = async (id: string, payload: Partial<TUser>)=>{
 
   return result;
 }
-
+// delete user from DB
+const deleteUserFromDB = async (id: string) => {
+  const result = await User.findByIdAndDelete(id);
+  return result;
+};
 //user Login
 
 const userSignIntoDB = async(payload: TUserAuth )=>{
@@ -180,5 +184,6 @@ export const userServices = {
   getAllUserFromDB,
   getUserFromDB,
   updateUserIntoDb,
-  updateUserInfoIntoDb
+  updateUserInfoIntoDb,
+  deleteUserFromDB
 };

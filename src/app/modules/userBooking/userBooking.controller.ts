@@ -2,7 +2,7 @@ import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { User } from "../user/user.model";
-import { myBookingsServices } from "./myBooking.services";
+import { userBookingsServices } from "./userBooking.services";
 import AppError from "../../errors/AppError";
 
 
@@ -20,7 +20,7 @@ const getUserBookings = catchAsync(async(req,res)=>{
         throw new AppError(httpStatus.NOT_FOUND,'Current user not found')
     }
 
-    const result = await myBookingsServices.getUsersBookingsFromDB(currentuser._id.toString())
+    const result = await userBookingsServices.getUsersBookingsFromDB(currentuser._id.toString())
   
     
     if(result.length === 0){
@@ -41,6 +41,6 @@ const getUserBookings = catchAsync(async(req,res)=>{
 })
 
 
-export const myBookingController = {
+export const userBookingController = {
     getUserBookings
 }

@@ -4,7 +4,7 @@ import { ServiceRoutes } from "../modules/Services/service.route";
 import { ServiceSlotsRoutes } from "../modules/serviceSlots/serviceSlots.route";
 import { serviceBookingRoutes } from "../modules/booking/booking.route";
 
-import { myBookingRoutes } from "../modules/myBooking/myBooking.route";
+import { userBookingRoutes } from "../modules/userBooking/userBooking.route";
 import { paymentRoutes } from "../modules/payment/payment.route";
 import { ReviewsRoutes } from "../modules/reviews/reviews.route";
 
@@ -35,7 +35,7 @@ const moduleRoutes = [
     },
     {
         path:"/my-bookings",
-        route: myBookingRoutes,
+        route: userBookingRoutes,
     },
     {
         path:"/payment",

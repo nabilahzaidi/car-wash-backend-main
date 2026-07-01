@@ -1,7 +1,7 @@
 import { Model } from "mongoose";
 
 
-export type TRole = "user"|"admin"
+export type TRole = "user"|"admin"|"staff"
 
 export type TUser ={
     toObject(): { [x: string]: unknown; password: unknown; };
@@ -11,6 +11,7 @@ export type TUser ={
     phone:string;
     role: TRole;
     address: string;
+    status?: 'active' | 'inactive';
     __v?: number;
 
 }

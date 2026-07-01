@@ -3,8 +3,8 @@
 import { z } from "zod";
 
 // Define the TRole schema
-const RoleValidation = z.enum(["user", "admin"], {
-  errorMap: () => ({ message: "Role must be either 'user' or 'admin'" }),
+const RoleValidation = z.enum(["user", "admin", "staff"], {
+  errorMap: () => ({ message: "Role must be either 'user', 'admin' or 'staff'" }),
 });
 
 // Define the TUser schema with custom error messages

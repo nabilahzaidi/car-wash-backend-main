@@ -14,7 +14,7 @@ const getUsersBookingsFromDB = async (userId: string)=>{
 }
 
 
-export const myBookingsServices = {
+export const userBookingsServices = {
    
     getUsersBookingsFromDB
 }

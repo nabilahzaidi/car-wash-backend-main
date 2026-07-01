@@ -88,8 +88,32 @@ const getAllBookings = catchAsync(async (req, res) => {
 const updateBooking = catchAsync(async (req, res) => {
   const bookingId = req.params.id;
   const payload = req.body;
+  const currentUser = req.user;
 
-  const result = await serviceBookings.updateBookingInDB(bookingId, payload);
+  let updatePayload = payload;
+
+  if (currentUser?.role === 'user') {
+    const user = await User.findOne({ email: currentUser.userEmail });
+    if (!user) {
+      throw new AppError(httpStatus.NOT_FOUND, 'Current user not found');
+    }
+
+    const booking = await ServiceBooking.findById(bookingId);
+    if (!booking) {
+      throw new AppError(httpStatus.NOT_FOUND, 'Booking not found');
+    }
+
+    if (booking.customer.toString() !== user._id.toString()) {
+      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized to update this booking');
+    }
+
+    updatePayload = {
+      paymentStatus: payload.paymentStatus,
+      transactionId: payload.transactionId,
+    };
+  }
+
+  const result = await serviceBookings.updateBookingInDB(bookingId, updatePayload);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
