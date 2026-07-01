@@ -8,8 +8,7 @@ import { USER_ROLE } from '../user/user.constant';
 const router = express.Router();
 
 router.post(
-  '/',
-  validateRequest(BookingValidation.createBookingValidationSchema),
+  '/',  auth(USER_ROLE.user),  validateRequest(BookingValidation.createBookingValidationSchema),
   BookingControllers.createServiceBooking,
 );
 

@@ -1,16 +1,6 @@
 import { Types } from 'mongoose';
 
-type VehicleType =
-  | 'car'
-  | 'truck'
-  | 'suv'
-  | 'van'
-  | 'motorcycle'
-  | 'bus'
-  | 'electricVehicle'
-  | 'hybridVehicle'
-  | 'bicycle'
-  | 'tractor';
+type VehicleType = 'sedan' | 'suv' | 'mpv';
 
 type VehicaleBrand = 
 | "Tata"

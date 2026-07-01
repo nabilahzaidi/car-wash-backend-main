@@ -21,16 +21,7 @@ export const vehicaleBrand = [
 
 
 export const vehicaleType = [
-   
-   'car',
-   'truck',
-   'suv',
-   'van',
-   'motorcycle',
-   'bus',
-   'electricVehicle',
-   'hybridVehicle',
-   'bicycle',
-   'tractor'
-  
-]
+  'sedan',
+  'suv',
+  'mpv',
+];

@@ -1,4 +1,3 @@
-import { initiatePayment } from "../payment/payment.utils";
 import { Service } from "../Services/service.model";
 import { User } from "../user/user.model";
 import { TBooking } from "./booking.interface";
@@ -7,34 +6,16 @@ import { ServicesSlot } from "../serviceSlots/serviceSlots.model";
 
 
 const createServiceBookingIntoDB = async(payload: TBooking)=>{
-
-
     const transactionId = `txn-${Date.now()}`;
-    const orderData = {...payload,transactionId}
+    const orderData = {...payload,transactionId};
 
     const createOrder = await ServiceBooking.create(orderData);
 
-if (!createOrder) {
-    throw new Error('Booking creation failed.');
-}
+    if (!createOrder) {
+        throw new Error('Booking creation failed.');
+    }
 
-const service = await Service.findById(orderData.service);
-const user = await User.findById(orderData.customer);
-
-const totalPrice = service?.price || 0;
-
-const paymentData = {
-    transactionId,
-    totalPrice,
-    customerName: user?.name || orderData.customerName || 'Customer',
-    customerEmail: user?.email || orderData.customerEmail,
-    customerPhone: user?.phone || orderData.customerPhone,
-    customerAddress: user?.address || orderData.customerAddress,
-};
-
-const paymentSession = await initiatePayment(paymentData);
-
-return paymentSession;
+    return createOrder;
 }
 
 
